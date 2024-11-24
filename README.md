@@ -16,6 +16,9 @@ cargo build --release
 ```shell
 cargo run --release -- -l 30 -i "Microphone (Scarlett Solo USB)" -o "CABLE Input (VB-Audio Virtual Cable)"
 ```
+# Common issues
+
+**Stream config problem?** Make sure your scarlett solo microphone device in windows has the same hz as vb audio cable.
 
 # Credits
 Thanks to the cpal's project amazing example which was slightly modified to duplicate the left channel.
