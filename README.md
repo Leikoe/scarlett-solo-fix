@@ -9,6 +9,10 @@ While running, cli app will duplicate your microphone's left channel into a virt
 You can then just select virtual audio cable's output as your default microphone.
 ctrl-c to stop the script.
 
+# Requirements
+- rust: https://www.rust-lang.org/tools/install
+- VB audio cable: https://vb-audio.com/Cable/
+
 # Install
 ```shell
 cargo build --release
