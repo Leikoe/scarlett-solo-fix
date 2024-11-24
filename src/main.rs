@@ -6,7 +6,6 @@
 //! Uses a delay of `LATENCY_MS` milliseconds in case the default input and output streams are not
 //! precisely synchronised.
 
-use std::process::exit;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 use clap::Parser;
@@ -17,14 +16,14 @@ use ringbuf::{
 };
 
 #[derive(Parser, Debug)]
-#[command(version, about = "CPAL feedback example", long_about = None)]
+#[command(version, about = "Scarlett solo fix CLI", long_about = None)]
 struct Opt {
     /// The input audio device to use
-    #[arg(short, long, value_name = "IN", default_value_t = String::from("default"))]
+    #[arg(short, long, value_name = "IN - Should be exact name", default_value_t = String::from("default"))]
     input_device: String,
 
     /// The output audio device to use
-    #[arg(short, long, value_name = "OUT", default_value_t = String::from("default"))]
+    #[arg(short, long, value_name = "OUT - Should be exact name", default_value_t = String::from("default"))]
     output_device: String,
 
     /// Specify the delay between input and output
@@ -180,9 +179,7 @@ fn main() -> anyhow::Result<()> {
         r.store(false, Ordering::SeqCst);
     }).expect("Error setting Ctrl-C handler");
 
-    // Run for 3 seconds before closing.
     println!("Playing for 3 seconds... ");
-    // std::thread::sleep(std::time::Duration::from_secs(3));
     println!("Waiting for Ctrl-C...");
     while running.load(Ordering::SeqCst) {}
     println!("Got it! Exiting...");
