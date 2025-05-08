@@ -6,7 +6,9 @@
 //! Uses a delay of `LATENCY_MS` milliseconds in case the default input and output streams are not
 //! precisely synchronised.
 
+use std::time::Duration;
 use std::sync::Arc;
+use std::thread;
 use std::sync::atomic::{AtomicBool, Ordering};
 use clap::Parser;
 use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
@@ -181,7 +183,9 @@ fn main() -> anyhow::Result<()> {
 
     println!("Playing for 3 seconds... ");
     println!("Waiting for Ctrl-C...");
-    while running.load(Ordering::SeqCst) {}
+    while running.load(Ordering::SeqCst) {
+        thread::sleep(Duration::from_millis(100));
+    }
     println!("Got it! Exiting...");
     drop(input_stream);
     drop(output_stream);
